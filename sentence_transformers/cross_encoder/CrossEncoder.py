@@ -13,6 +13,7 @@ from tqdm.autonotebook import tqdm, trange
 from .. import SentenceTransformer
 from ..evaluation import SentenceEvaluator
 
+NEAR_0 = 1e-7
 
 logger = logging.getLogger(__name__)
 
@@ -87,6 +88,50 @@ class CrossEncoder():
 
         return tokenized
 
+    def sigmoid_cross_entropy_loss(pred, labels):
+        labels_float = labels.float()
+        loss = -torch.mean(pred*torch.log(pred+NEAR_0)+(1-pred)*torch.log(1-pred+NEAR_0))
+        return loss
+
+    def sigmoid_cond_loss(pred):
+        """
+        Intuitively, when distance similarity p = 0.5, at least one of two instances is near the decision boundary between relation clusters.
+        The conditional entropy loss reaches maximum when p = 0.5 and thus penalizes close-boundary distribution of data points.  
+        """
+        loss = -torch.mean(pred*torch.log(pred+NEAR_0)+(1-pred)*torch.log(1-pred+NEAR_0))
+        return loss
+
+    def virtual_adv_loss(pred, unlabeled_input_1, unlabeled_input_2, p_mult, power_iterations=1):
+        """
+        Virtual adversarial loss prevents overfitting due to the conditional entropy loss by smoothing the relational representation space with
+        locally Lipschitz constraint. It penalizes sharp changes in distance prediction in data point neighborhoods. It is implemented by using the
+        Kullback-Leibler divergence between p(d) and p(d,t_1,t_2) where t are worst-case perturbation that maximize KL-divergence.
+        It is approximated following Miyato et al. (2016): the normalized gradient of KL-divergence between outputs of original and randomly noisy input
+        is added to the original input to approximate perturbed input.
+        """
+
+
+        # Clip pred by value (1e-7, 1.-1e-7)
+        # prob_dist = Bernoulli distribution of pred
+
+        # generate virtual adversarial perturbation
+        # create two random tensors with size of sentence embeddings using a uniform distribution, dtype=float32. call them perturb_1, perturb_2
+
+        # Loop over range of power iterations:
+        #     L2-Normalize perturbations. Multiply them by 0.02
+        #     p_prob = clipped prediction with perturbations by value (1e-7, 1.-1e-7)
+        #     kl = Kullback-Leibler divergence on Bernoulli distributions using pred and p_prob
+        #     Output derivatives of kl w.r.t. perturbations
+        #     stop gradient
+        # L2-normalize perturbations. Multiply by 0.02
+        # Stop gradient
+        # p_prob = clipped prediction with perturbations by value (1e-7, 1.-1e-7)
+        # v_adv_losses = KL divergence on Bernoulli distributions using pred and new p_prob
+        # return mean(v_adv_losses)
+
+    def louvain_no_isolation(dataset, edge_measure, datatype=np.int32, iso_threshold = 5):
+
+
     def fit(self,
             train_dataloader: DataLoader,
             evaluator: SentenceEvaluator = None,
@@ -158,8 +203,13 @@ class CrossEncoder():
         if isinstance(scheduler, str):
             scheduler = SentenceTransformer._get_scheduler(optimizer, scheduler=scheduler, warmup_steps=warmup_steps, t_total=num_train_steps)
 
-        if loss_fct is None:
-            loss_fct = nn.BCEWithLogitsLoss() if self.config.num_labels == 1 else nn.CrossEntropyLoss()
+        #if loss_fct is None:
+        #    loss_fct = nn.BCEWithLogitsLoss() if self.config.num_labels == 1 else nn.CrossEntropyLoss()
+
+        # Base loss is cross entropy loss
+
+        loss_fct = nn.CrossEntropyLoss()
+
 
 
         skip_scheduler = False
