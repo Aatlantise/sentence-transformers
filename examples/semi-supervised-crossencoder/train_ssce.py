@@ -4,7 +4,7 @@ from sentence_transformers.cross_encoder.evaluation import CEBinaryAccuracyEvalu
 from torch.utils.data import DataLoader
 
 
-model = CrossEncoder('stsb-roberta-base', num_labels = 2)
+model = CrossEncoder('cross-encoder/stsb-roberta-base', num_labels = 2)
 roberta = model._first_module()
 tokens = ["<e1>", "<e2>"]
 roberta.tokenizer.add_tokens(tokens, special_tokens=True)
