@@ -1,7 +1,7 @@
 from sentence_transformers import CrossEncoder
 from sentence_transformers.readers import InputExample
 from sentence_transformers.cross_encoder.evaluation import CEBinaryAccuracyEvaluator
-from torch.utils.data import Dataloader
+from torch.utils.data import DataLoader
 
 
 model = CrossEncoder('stsb-roberta-base', num_labels = 2)
