@@ -36,6 +36,6 @@ evaluator = CEBinaryAccuracyEvaluator(test_sentence_pairs, test_labels, write_cs
 
 roberta.fit(train_dataloader = train_dataloader,
 			evaluator = evaluator,
-			epochs = 5
+			epochs = 5,
 			output_path = './ssce_save/'
 			)
