@@ -1,5 +1,5 @@
 from sentence_transformers import CrossEncoder, InputExample, models
-from sentence_transformers.evaluation import CEBinaryAccuracyEvaluator
+from sentence_transformers.evaluation import BinaryClassificationEvaluator
 from torch.utils.data import Dataloader
 
 
@@ -32,7 +32,7 @@ for line in test_data:
 	test_labels.append(int(pair[2]))
 
 train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
-evaluator = CEBinaryAccuracyEvaluator(test_sentence_pairs, test_labels, write_csv = True)
+evaluator = BinaryClassificationEvaluator(test_sentence_pairs, test_labels, write_csv = True)
 
 roberta.fit(train_dataloader = train_dataloader,
 			evaluator = evaluator,
