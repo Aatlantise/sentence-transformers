@@ -1,4 +1,4 @@
-from sentence_transformer import CrossEncoder, InputExample, models
+from sentence_transformers import CrossEncoder, InputExample, models
 from sentence_transformers.evaluation import CEBinaryAccuracyEvaluator
 from torch.utils.data import Dataloader
 
