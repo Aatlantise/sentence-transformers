@@ -2,6 +2,7 @@ from sentence_transformers import CrossEncoder
 from sentence_transformers.readers import InputExample
 from sentence_transformers.cross_encoder.evaluation import CEBinaryClassificationEvaluator
 from torch.utils.data import DataLoader
+from torch import nn
 
 
 roberta = CrossEncoder('cross-encoder/stsb-roberta-base', num_labels = 1)
