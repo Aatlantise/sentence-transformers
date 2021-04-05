@@ -51,5 +51,5 @@ roberta.fit(train_dataloader = train_dataloader,
 	evaluator = evaluator,
 	epochs = 5,
 	loss_fct = nn.BCEWithLogitsLoss(),
-	output_path = './ssce_save/'
+	output_path = './ssce_save/fsce/'
 	)

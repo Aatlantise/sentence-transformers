@@ -6,11 +6,12 @@ from torch import nn
 
 class sigmoid_cond_loss():
 	def __init__():
-		
+
     loss = -tf.reduce_mean(pred*tf.log(pred+NEAR_0)+(1-pred)*tf.log(1-pred+NEAR_0))
     return loss
 
-def virtual_adversarial_loss(pred):
+class virtual_adversarial_loss():
+	def __init__(pred):
 
 
 roberta = CrossEncoder('cross-encoder/stsb-roberta-base', num_labels = 1)
@@ -60,5 +61,5 @@ roberta.fit(train_dataloader = train_dataloader,
 	evaluator = evaluator,
 	epochs = 5,
 	loss_fct = nn.BCEWithLogitsLoss(),
-	output_path = './ssce_save/'
+	output_path = './ssce_save/ssce/'
 	)

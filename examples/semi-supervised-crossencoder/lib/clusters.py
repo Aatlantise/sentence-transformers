@@ -5,12 +5,6 @@ import community
 
 
 
-# def L2_dist(left_data, right_data):
-#     data_minus = np.array(left_data)-np.array(right_data)
-#     data_dist = np.sum(data_minus*data_minus,1)
-#     return data_dist
-
-# find the closest two classes
 def find_close(M):
     s_index, l_index = 0, 0
     min_list = np.zeros([len(M)],dtype=np.float32)
