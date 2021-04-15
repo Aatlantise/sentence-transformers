@@ -5,18 +5,18 @@ from torch.utils.data import DataLoader
 from torch import nn
 
 
-roberta = CrossEncoder('cross-encoder/stsb-roberta-base', num_labels = 1)
+roberta = CrossEncoder('monologg/kobert', num_labels = 1)
 tokens = ["<e1>", "<e2>"]
 roberta.tokenizer.add_tokens(tokens, special_tokens=True)
 roberta.model.resize_token_embeddings(len(roberta.tokenizer))
 
-with open('fewrel_tag/pairwise_labeled_train.tsv','r') as r:
+with open('datasets/editor_standalone/pairwise_labeled_train.tsv','r') as r:
     labeled_data = r.readlines()
 
-with open('fewrel_tag/pairwise_unlabeled_train.tsv', 'r') as r:
+with open('datasets/editor_standalone/pairwise_unlabeled_train.tsv', 'r') as r:
 	unlabeled_data = r.readlines()
 
-with open('fewrel_tag/pairwise_test.tsv', 'r') as r:
+with open('datasets/editor_standalone/pairwise_test.tsv', 'r') as r:
 	test_data = r.readlines()
 
 train_examples = [] 

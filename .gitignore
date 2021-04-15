@@ -9,6 +9,7 @@ examples/datasets/*/
 sentence_transformers.egg-info
 dist/
 nr_*/
+/examples/semi-supervised-crossencoder/datasets/
 /examples/datasets/
 /examples/embeddings/
 /pretrained-models/
