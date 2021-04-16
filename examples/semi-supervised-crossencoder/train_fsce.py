@@ -49,7 +49,7 @@ evaluator = CEBinaryClassificationEvaluator(test_sentence_pairs, test_labels)
 
 roberta.fit(train_dataloader = train_dataloader,
     evaluator = evaluator,
-    epochs = 5,
+    epochs = 20,
     loss_fct = nn.BCEWithLogitsLoss(),
     output_path = './ssce_save/fsce/augmented_ko_re_tag'
     )
