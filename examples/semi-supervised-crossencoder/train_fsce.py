@@ -10,13 +10,13 @@ tokens = ["<e1>", "<e2>"]
 roberta.tokenizer.add_tokens(tokens, special_tokens=True)
 roberta.model.resize_token_embeddings(len(roberta.tokenizer))
 
-with open('datasets/editor_standalone/pairwise_labeled_train.tsv','r') as r:
+with open('datasets/augmented_ko_re_tag/pairwise_labeled_train.tsv','r') as r:
     labeled_data = r.readlines()
 
-with open('datasets/editor_standalone/pairwise_unlabeled_train.tsv', 'r') as r:
+with open('datasets/augmented_ko_re_tag/pairwise_unlabeled_train.tsv', 'r') as r:
     unlabeled_data = r.readlines()
 
-with open('datasets/editor_standalone/pairwise_test.tsv', 'r') as r:
+with open('datasets/augmented_ko_re_tag/pairwise_test.tsv', 'r') as r:
     test_data = r.readlines()
 
 train_examples = [] 
@@ -51,5 +51,5 @@ roberta.fit(train_dataloader = train_dataloader,
     evaluator = evaluator,
     epochs = 5,
     loss_fct = nn.BCEWithLogitsLoss(),
-    output_path = './ssce_save/fsce/'
+    output_path = './ssce_save/fsce/augmented_ko_re_tag'
     )
