@@ -29,6 +29,8 @@ def train_fsce(model_name, num_labels, dataset_name, num_epochs, batch_size):
         except:
             continue
 
+    print("Training set length is: " + str(len(train_examples)))
+
     test_sentence_pairs = []
     test_labels = []
     for line in test_data:
