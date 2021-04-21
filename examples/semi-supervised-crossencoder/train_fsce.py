@@ -54,7 +54,6 @@ def train_fsce(model_name, num_labels, dataset_name, num_epochs, batch_size):
         loss_fct = nn.BCEWithLogitsLoss(),
         output_path = './ssce_save/fsce/' + dataset_name
         )
-model_name = 'monologg/kobert', num_labels = 2, dataset_name, num_epochs
 
 
 if __name__=='__main__':
