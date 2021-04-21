@@ -44,7 +44,7 @@ for line in test_data:
     test_sentence_pairs.append(new_entry[0])
     test_labels.append(new_entry[1])
 
-train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=4096)
+train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=256)
 evaluator = CEBinaryAccuracyEvaluator(test_sentence_pairs, test_labels)
 
 roberta.fit(train_dataloader = train_dataloader,
