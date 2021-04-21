@@ -51,7 +51,7 @@ def train_fsce(model_name, num_labels, dataset_name, num_epochs, batch_size):
     kobert.fit(train_dataloader = train_dataloader,
         evaluator = evaluator,
         epochs = 5,
-        loss_fct = nn.BCEWithLogitsLoss(),
+        #loss_fct = nn.BCEWithLogitsLoss(),
         output_path = './ssce_save/fsce/' + dataset_name
         )
 
