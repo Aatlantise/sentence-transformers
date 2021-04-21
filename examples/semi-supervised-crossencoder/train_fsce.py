@@ -1,6 +1,6 @@
 from sentence_transformers import CrossEncoder
 from sentence_transformers.readers import InputExample
-from sentence_transformers.cross_encoder.evaluation import CEBinaryClassificationEvaluator
+from sentence_transformers.cross_encoder.evaluation import CEBinaryAccuracyEvaluator, CEBinaryClassificationEvaluator
 from torch.utils.data import DataLoader
 from torch import nn
 
@@ -44,12 +44,12 @@ for line in test_data:
     test_sentence_pairs.append(new_entry[0])
     test_labels.append(new_entry[1])
 
-train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
+train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=4096)
 evaluator = CEBinaryAccuracyEvaluator(test_sentence_pairs, test_labels)
 
 roberta.fit(train_dataloader = train_dataloader,
     evaluator = evaluator,
-    epochs = 20,
+    epochs = 5,
     loss_fct = nn.BCEWithLogitsLoss(),
     output_path = './ssce_save/fsce/ko_re_tag'
     )
