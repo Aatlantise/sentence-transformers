@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 from torch import nn
 
 
-roberta = CrossEncoder('monologg/kobert', num_labels = 1)
+roberta = CrossEncoder('monologg/kobert', num_labels = 2)
 tokens = ["<e1>", "<e2>"]
 roberta.tokenizer.add_tokens(tokens, special_tokens=True)
 roberta.model.resize_token_embeddings(len(roberta.tokenizer))
