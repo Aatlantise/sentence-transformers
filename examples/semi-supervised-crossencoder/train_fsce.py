@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 from torch import nn
 import argparse 
 
-def train_fsce(model_name, num_labels, dataset_name, num_epochs, batch_size):
+def train_fsce(model_name, num_labels, dataset_name, num_epochs, batch_size, training_loss):
     kobert = CrossEncoder(model_name, num_labels = num_labels)
     tokens = ["<e1>", "<e2>"]
     kobert.tokenizer.add_tokens(tokens, special_tokens=True)
@@ -50,10 +50,17 @@ def train_fsce(model_name, num_labels, dataset_name, num_epochs, batch_size):
     train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=batch_size)
     evaluator = CEBinaryAccuracyEvaluator(test_sentence_pairs, test_labels)
 
+    if training_loss = 'cross':
+        loss_fct = nn.CrossEntropyLoss()
+    elif training_loss = 'BCE':
+        loss_fct = nn.BCEWithLogitsLoss()
+    else:
+        loss_fct = None
+
     kobert.fit(train_dataloader = train_dataloader,
         evaluator = evaluator,
-        epochs = 5,
-        loss_fct = None,
+        epochs = num_epochs,
+        loss_fct = loss_fct,
         output_path = './ssce_save/fsce/' + dataset_name
         )
 
@@ -65,6 +72,7 @@ if __name__=='__main__':
     parser.add_argument("--num_labels", type = int, default = 1)
     parser.add_argument("--num_epochs", type = int, default = 5)
     parser.add_argument("--batch_size", type = int, default = 128)
+    parser.add_argument("--training_loss", type = str, default = 'cross')
 
     args = parser.parse_args()
 
@@ -73,5 +81,6 @@ if __name__=='__main__':
         num_labels = args.num_labels,
         dataset_name = args.dataset_name,
         num_epochs = args.num_epochs,
-        batch_size = args.batch_size
+        batch_size = args.batch_size,
+        training_loss = args.training-loss
     )
