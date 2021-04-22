@@ -69,7 +69,7 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type = str, default = 'monologg/kobert')
     parser.add_argument("--dataset_name", type = str, default = 'augmented_ko_re_tag')
-    parser.add_argument("--num_labels", type = int, default = 1)
+    parser.add_argument("--num_labels", type = int, default = 2)
     parser.add_argument("--num_epochs", type = int, default = 5)
     parser.add_argument("--batch_size", type = int, default = 128)
     parser.add_argument("--training_loss", type = str, default = 'cross')

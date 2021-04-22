@@ -47,12 +47,14 @@ class CEBinaryAccuracyEvaluator:
             out_txt = ":"
 
         logger.info("CESoftmaxAccuracyEvaluator: Evaluating the model on " + self.name + " dataset" + out_txt)
-        pred_scores = model.predict(self.sentence_pairs, convert_to_numpy=True, show_progress_bar=False)
-        pred_labels = pred_scores > self.threshold
+        pred_scores = model.predict(self.sentence_pairs, apply_softmax = True, convert_to_numpy=True, show_progress_bar=False)
+        correct = 0
+        for n, pred_score in enumerate(pred_scores):
+            correct += ((pred_score[1] > pred_score[0]) == self.labels[n])
 
         assert len(pred_labels) == len(self.labels)
 
-        acc = np.sum(pred_labels == self.labels) / len(self.labels)
+        acc = correct / len(self.labels)
 
         logger.info("Accuracy: {:.2f}".format(acc*100))
 

@@ -8,42 +8,42 @@ from torch import nn
 
 sys.path.append(os.path.abspath('lib/'))
 
-model = CrossEncoder('ssce_save/fsce/ko_re_tag', num_labels = 1)
 
-with open('datasets/editor_standalone/pairwise_OOD.tsv', 'r') as r:
-    OOD_data = r.readlines()
+def evaluate_ce(num_labels, dataset_name):
+    model = CrossEncoder('ssce_save/fsce/' + dataset_name, num_labels = num_labels)
 
-OOD_sentence_pairs = []
-OOD_labels = []
-for line in OOD_data:
-    pair = line.strip('\n').split('\t')
-    new_entry = []
-    try:
-        new_entry.append([pair[0], pair[1]])
-    except:
-        continue
-    try:
-        new_entry.append(int(pair[2]))
-    except:
-        continue
-    OOD_sentence_pairs.append(new_entry[0])
-    OOD_labels.append(new_entry[1])
+    with open('datasets/editor_standalone/pairwise_OOD.tsv', 'r') as r:
+        OOD_data = r.readlines()
 
-OOD_evaluator = CEBinaryAccuracyEvaluator(OOD_sentence_pairs, OOD_labels)
+    OOD_sentence_pairs = []
+    OOD_labels = []
+    for line in OOD_data:
+        pair = line.strip('\n').split('\t')
+        new_entry = []
+        try:
+            new_entry.append([pair[0], pair[1]])
+        except:
+            continue
+        try:
+            new_entry.append(int(pair[2]))
+        except:
+            continue
+        OOD_sentence_pairs.append(new_entry[0])
+        OOD_labels.append(new_entry[1])
 
-OOD_evaluator(model = model,
-    output_path = './ssce_save/fsce/ko_re_tag')
+    OOD_evaluator = CEBinaryAccuracyEvaluator(OOD_sentence_pairs, OOD_labels)
 
-'''
-OOD_examples = []
+    OOD_evaluator(model = model,
+        output_path = 'ssce_save/fsce/' + dataset_name)
 
-for line in OOD_data:
-    pair = line.strip('\n').split('\t')
-    try:
-        OOD_examples.append(InputExample(texts = [pair[0], pair[1]], label = int(pair[2])))
-    except:
-        continue
+if __name__=='__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset_name", type = str, default = 'augmented_ko_re_tag')
+    parser.add_argument("--num_labels", type = int, default = 2)
 
-train_dataloader = DataLoader(OOD_examples, shuffle=True, batch_size=16)
-label_evaluator = CEBinaryClassificationEvaluator(test_sentence_pairs, test_labels)
-'''
+    args = parser.parse_args()
+
+    train_fsce(
+        num_labels = args.num_labels,
+        dataset_name = args.dataset_name,
+    )
