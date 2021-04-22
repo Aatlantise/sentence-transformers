@@ -50,9 +50,9 @@ def train_fsce(model_name, num_labels, dataset_name, num_epochs, batch_size, tra
     train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=batch_size)
     evaluator = CEBinaryAccuracyEvaluator(test_sentence_pairs, test_labels)
 
-    if training_loss = 'cross':
+    if training_loss == 'cross':
         loss_fct = nn.CrossEntropyLoss()
-    elif training_loss = 'BCE':
+    elif training_loss == 'BCE':
         loss_fct = nn.BCEWithLogitsLoss()
     else:
         loss_fct = None
@@ -82,5 +82,5 @@ if __name__=='__main__':
         dataset_name = args.dataset_name,
         num_epochs = args.num_epochs,
         batch_size = args.batch_size,
-        training_loss = args.training-loss
+        training_loss = args.training_loss
     )
