@@ -9,10 +9,10 @@ from torch import nn
 sys.path.append(os.path.abspath('lib/'))
 
 
-def evaluate_ce(num_labels, dataset_name):
+def evaluate_ce(num_labels, dataset_name, evalset_name):
     model = CrossEncoder('ssce_save/fsce/' + dataset_name, num_labels = num_labels)
 
-    with open('datasets/editor_standalone/pairwise_OOD.tsv', 'r') as r:
+    with open(evalset_name, 'r') as r:
         OOD_data = r.readlines()
 
     OOD_sentence_pairs = []
@@ -40,10 +40,12 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset_name", type = str, default = 'augmented_ko_re_tag')
     parser.add_argument("--num_labels", type = int, default = 2)
+    parser.add_argument("--evalset_name", type = str, default = 'datasets/editor_standalone/pairwise_OOD.tsv')
 
     args = parser.parse_args()
 
     evaluate_ce(
         num_labels = args.num_labels,
         dataset_name = args.dataset_name,
+        evalset_name = args.evalset_name
     )
