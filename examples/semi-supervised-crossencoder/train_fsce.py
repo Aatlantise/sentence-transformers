@@ -3,7 +3,8 @@ from sentence_transformers.readers import InputExample
 from sentence_transformers.cross_encoder.evaluation import CEBinaryAccuracyEvaluator, CEBinaryClassificationEvaluator
 from torch.utils.data import DataLoader
 from torch import nn
-import argparse 
+import argparse
+from evaluate_ce import evaluate_ce
 
 def train_fsce(model_name, num_labels, dataset_name, num_epochs, batch_size, training_loss):
     kobert = CrossEncoder(model_name, num_labels = num_labels)
@@ -83,4 +84,22 @@ if __name__=='__main__':
         num_epochs = args.num_epochs,
         batch_size = args.batch_size,
         training_loss = args.training_loss
+    )
+
+    evaluate_ce(
+        num_labels = args.num_labels,
+        dataset_name = args.dataset_name,
+        evalset_name = 'datasets/editor_standalone/pairwise_OOD.tsv'
+    )
+
+    evaluate_ce(
+        num_labels = args.num_labels,
+        dataset_name = args.dataset_name,
+        evalset_name = 'datasets/editor_standalone/pairwise_OOD_pos.tsv'
+    )
+
+    evaluate_ce(
+        num_labels = args.num_labels,
+        dataset_name = args.dataset_name,
+        evalset_name = 'datasets/editor_standalone/pairwise_OOD_neg.tsv'
     )
