@@ -43,7 +43,7 @@ if __name__=='__main__':
 
     args = parser.parse_args()
 
-    train_fsce(
+    evaluate_ce(
         num_labels = args.num_labels,
         dataset_name = args.dataset_name,
     )
