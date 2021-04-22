@@ -52,7 +52,7 @@ class CEBinaryAccuracyEvaluator:
         for n, pred_score in enumerate(pred_scores):
             correct += ((pred_score[1] > pred_score[0]) == self.labels[n])
 
-        assert len(pred_labels) == len(self.labels)
+        assert len(pred_scores) == len(self.labels)
 
         acc = correct / len(self.labels)
 
