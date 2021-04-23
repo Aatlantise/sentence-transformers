@@ -45,7 +45,7 @@ if __name__=='__main__':
     parser.add_argument("--num_labels", type = int, default = 2)
     parser.add_argument("--evalset_name", type = str, default = 'datasets/editor_standalone/pairwise_OOD.tsv')
     parser.add_argument("--evaluator", type = str, default = 'accuracy')
-    parser.add_argument("--num_labels", type = float, default = 0.5)
+    parser.add_argument("--threshold", type = float, default = 0.5)
 
     args = parser.parse_args()
 
