@@ -89,17 +89,23 @@ if __name__=='__main__':
     evaluate_ce(
         num_labels = args.num_labels,
         dataset_name = args.dataset_name,
-        evalset_name = 'datasets/editor_standalone/pairwise_OOD.tsv'
+        evalset_name = 'datasets/editor_standalone/pairwise_OOD.tsv',
+        evaluator = 'accuracy',
+        threshold = '0.5'
     )
 
     evaluate_ce(
         num_labels = args.num_labels,
         dataset_name = args.dataset_name,
-        evalset_name = 'datasets/editor_standalone/pairwise_OOD_pos.tsv'
+        evalset_name = 'datasets/editor_standalone/pairwise_OOD_pos.tsv',
+        evaluator = 'accuracy',
+        threshold = '0.5'
     )
 
     evaluate_ce(
         num_labels = args.num_labels,
         dataset_name = args.dataset_name,
-        evalset_name = 'datasets/editor_standalone/pairwise_OOD_neg.tsv'
+        evalset_name = 'datasets/editor_standalone/pairwise_OOD_neg.tsv',
+        evaluator = 'accuracy',
+        threshold = '0.5'
     )

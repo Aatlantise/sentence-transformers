@@ -50,7 +50,7 @@ class CEBinaryAccuracyEvaluator:
         pred_scores = model.predict(self.sentence_pairs, apply_softmax = True, convert_to_numpy=True, show_progress_bar=False)
         correct = 0
         for n, pred_score in enumerate(pred_scores):
-            correct += ((pred_score[1] > pred_score[0]) == self.labels[n])
+            correct += ((pred_score[0] < self.threshold) == self.labels[n])
 
         assert len(pred_scores) == len(self.labels)
 

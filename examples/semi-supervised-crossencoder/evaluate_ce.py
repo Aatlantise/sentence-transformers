@@ -34,7 +34,7 @@ def evaluate_ce(num_labels, dataset_name, evalset_name, evaluator, threshold):
     if evaluator == 'accuracy':
         OOD_evaluator = CEBinaryAccuracyEvaluator(OOD_sentence_pairs, OOD_labels, threshold = threshold)
     elif evaluator == 'classification':
-         OOD_evaluator = CEBinaryClassificationEvaluator(OOD_sentence_pairs, OOD_labels)
+        OOD_evaluator = CEBinaryClassificationEvaluator(OOD_sentence_pairs, OOD_labels)
 
     OOD_evaluator(model = model,
         output_path = 'ssce_save/fsce/' + dataset_name)
