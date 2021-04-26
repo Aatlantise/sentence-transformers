@@ -85,7 +85,7 @@ if __name__=='__main__':
         batch_size = args.batch_size,
         training_loss = args.training_loss
     )
-'''
+    '''
     evaluate_ce(
         num_labels = args.num_labels,
         dataset_name = args.dataset_name,
@@ -93,7 +93,7 @@ if __name__=='__main__':
         evaluator = 'accuracy',
         threshold = '0.5'
     )
-'''
+    '''
     evaluate_ce(
         num_labels = args.num_labels,
         dataset_name = args.dataset_name,
